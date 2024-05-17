@@ -143,9 +143,9 @@ Below is an overview of the project directory:
 ├── README.md
 ├── app  # 
 │   ├── __init__.py
-│   ├── api
+│   ├── api  # define apis
 │   │   ├── __init__.py
-│   │   └── v1
+│   │   └── v1  # api version
 │   │       ├── __init__.py
 │   │       └── image.py  # image handlers
 │   ├── app.py  # create Flask app
@@ -154,22 +154,22 @@ Below is an overview of the project directory:
 │   │   └── settings.py  # setting files
 │   ├── error
 │   │   ├── __init__.py
-│   │   ├── error.py
-│   │   └── error_code.py
-│   ├── internal
+│   │   ├── error.py # base class APIException
+│   │   └── error_code.py # specific Exceptions defined by developers
+│   ├── internal  # core code for processing user's input
 │   │   ├── __init__.py
-│   │   └── image.py
-│   ├── libs
+│   │   └── image.py  # code code for processing images
+│   ├── libs  # libraries used by flask app
 │   │   ├── __init__.py
 │   │   └── redprint.py
-│   └── validators
+│   └── validators  # valid for parameters
 │       ├── __init__.py
-│       ├── base.py
-│       └── image.py
-├── client.py
-├── main.py
-├── test_main.py
-└── test_images
+│       ├── base.py   # base call validator to return APIException for invalid parameters
+│       └── image.py  # valid for image endpoint parameters
+├── client.py  # client test script
+├── main.py  # main file of API
+├── test_main.py # pytest for flask API
+└── test_images  # images used for testing
     ├── bedroom.png
     ├── bedroom_brighter.png
     ├── brighter_cat.png
@@ -195,6 +195,7 @@ pytest test_main.py
 |test_png_img| test posting a png image        |✅|
 |test_jpg_img| test posting a jpg image        |✅|
 |test_abnormal_img| test posting an invalid image   |✅|
+
 ![](.github/test.png)
 ### Image tests
 
