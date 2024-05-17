@@ -3,4 +3,4 @@ class Config:
     INCREASE_BRIGHTNESS_RATE = 1.3
     DEFAULT_IMG_TYPE = 'PNG'
     MAX_IMG_SIZE = 5 * 1024 * 1024  # 5MB
-    MIN_IMG_SIZE = 0 * 1024  # 10KB
+    MIN_IMG_SIZE = 10 * 1024  # 10KB
