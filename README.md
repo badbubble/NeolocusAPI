@@ -117,9 +117,9 @@ Developers or clients can use the following table to determine what happend to t
 | ParameterException | 200              | 101        | {"error_code": 101, "msg":{"image":"WHATS WORNG WITH image PARAMETER"}, "request": REQUEST_METHOD and ENDPOINT} | Client's input is invalid                                                               |
 |  ServerError    | 500              | 1000       | {"error_code": 1000, "msg":{"error":[A LIST OF ERRORS]}, "request": REQUEST_METHOD and ENDPOINT}                | Other errors                                                                                                     |
 
-### Return Exception when meet with invalid parameters
-Rewrite `wtforms.Form` to process requested data within validators and return ParameterException directly
-if there is an invalid parameters instead of process it in handler.
+### Raise an Exception for Invalid Parameters
+
+Modify the wtforms.Form to process the requested data within its validators. If any parameters are invalid, immediately return a ParameterException directly from the validators, instead of handling it later in the application handler.
 ```python
 class BaseForm(Form):
     def __init__(self):
