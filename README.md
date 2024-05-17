@@ -182,16 +182,20 @@ Below is an overview of the project directory:
 
 
 ### Flask tests
-test cases in `test_app.py`
+Exectue `test_main.py` with pytest to test this project:
+```bash
+pytest test_main.py
+```
 
-| Test function | Description                     |
-|---------------|---------------------------------|
-|test_invalid_param_big_img| test posting a very big image   |
-|test_invalid_param_small_img| test posting a very small image |
-|test_invalid_param_empty_img| test posting an empty image     |
-|test_png_img| test posting a png image        |
-|test_jpg_img| test posting a jpg image        |
-|test_abnormal_img| test posting an invalid image   |
+| Test function | Description                     | IS_PASS|
+|---------------|---------------------------------|---|
+|test_invalid_param_big_img| test posting a very big image   |✅|
+|test_invalid_param_small_img| test posting a very small image |✅|
+|test_invalid_param_empty_img| test posting an empty image     |✅|
+|test_png_img| test posting a png image        |✅|
+|test_jpg_img| test posting a jpg image        |✅|
+|test_abnormal_img| test posting an invalid image   |✅|
+![](.github/test.png)
 ### Image tests
 
 | Original                     | Increase brightness            |
