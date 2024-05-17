@@ -199,7 +199,7 @@ pytest test_main.py
 ![](.github/test.png)
 ### Image tests
 
-| Original                     | Increase brightness            |
+| Original                     | Brighter                       |
 |------------------------------|--------------------------------|
 | ![](test_images/cat.png)     | ![](result_images/cat.png)     |
 | ![](test_images/dog.jpg)     | ![](result_images/dog.jpg)     |
