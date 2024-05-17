@@ -1,46 +1,69 @@
 # Neolocus API
 
-This is an image processing API in Python Flask that increases the brightness of every received image by 30%.
+Welcome to Neolocus API, an image processing tool developed using Python Flask. This API is designed to enhance the brightness of images by 30%.
 
-## Deploy API server
-1. clone this project from Github
+## Getting Started
+### Prerequisites
+Before deploying the API server, make sure you have Docker and Python installed on your machine. These tools are necessary for building and running the API server.
+### Deployment
+#### Setting Up the Server
+1. ***Clone the Repository***
+
+Begin by cloning the NeolocusAPI repository from GitHub:
 ```bash
 git clone https://github.com/badbubble/NeolocusAPI.git
 ```
-2. Modify settings as need in `NeolocusAPI/app/config/settings.py`
+2. ***Configure Settings***
+
+Navigate to `NeolocusAPI/app/config/settings.py` to adjust the settings according to your requirements:
 ```python
 class Config:
     DEBUG = False  # debug mode
     INCREASE_BRIGHTNESS_RATE = 1.3  # increase rate
     DEFAULT_IMG_TYPE = 'PNG'  # default type of image
     MAX_IMG_SIZE = 5 * 1024 * 1024  # max image size 5MB
-    MIN_IMG_SIZE = 0 * 1024  # min image size 10KB
+    MIN_IMG_SIZE = 10 * 1024  # min image size 10KB
 ```
-3. Use Docker deploy it(recommend)
+3. ***Deploy Using Docker (Recommended)***
+
+Use Docker to build and run the API on WSGI HTTP Server:
+
 ```bash
 docker build -t neolocusapi .
 docker run -d -p 8080:8080 neolocusapi
 ```
-4. Or use pip to install requirements to run it locally.
+4. ***Alternative Local Deployment.***
+
+If you prefer not to use Docker, install the necessary Python packages and run the server locally:
+
+
 ```bash
 pip install -r requirements.txt
 gunicorn --workers=3 --bind=0.0.0.0:8080 main:app
 ```
 
 
-## Test by client.py
+### Testing the API
 
-1. install requirements
+1. ***Install Client Dependencies***
+
+Install the required packages for the client script:
+
+
 ```bash
 pip install -r client_requirements.txt
 ```
 
-2. execute client.py with image path and image saved path
+2. ***Run the Client Script***
+
+Execute client.py with the necessary parameters to process an image:
 
 ```bash
 python3 client.py --ip <ip_address> --port <port_number> --img_path <path_to_input_image> --save_path <path_to_output_image>
 ```
-example:
+Example usage:
+
+
 ```bash
 python3 client.py --ip 0.0.0.0 --port 8080 --img_path test_images/bedroom.png --save_path result_images/bedroom.png
 ```
@@ -48,15 +71,14 @@ python3 client.py --ip 0.0.0.0 --port 8080 --img_path test_images/bedroom.png --
 ![](.github/client_command.png)
 
 ## Features
-### Redprint for endpoints
-![](.github/redprints.png)
-
-Create a Redprint class from a Blueprint class. 
-Similar to a Blueprint, a Redprint helps developers decompose a large Flask application into smaller,
-manageable, and reusable components. Each 'redprint' focuses on a specific feature or aspect of the application.
+### Redprint for Modular Endpoints
+A 'Redprint' is a variant of Flask's 'Blueprint', designed to help developers organize larger applications into more manageable components focused on specific features,
 For example, use api = Redprint("image") to define a module for image handling.
 This approach simplifies routing; instead of repeatedly writing @api.route("/v1/image/upload"), 
 a developer can simply use @api.route("upload").
+
+![](.github/redprints.png)
+
 
 ```python
 class Redprint:
@@ -79,7 +101,8 @@ class Redprint:
             bp.add_url_rule(url_prefix + rule, endpoint, f, **options)
 
 ```
-### Uniform Response Format
+### Standardized Error Handling
+
 ![](.github/errors.png)
 In this API project, every handler should return an APIException instead of a direct JSON result.
 The APIException is a structured JSON response that includes the endpoint the client requested,
@@ -111,7 +134,10 @@ class BaseForm(Form):
         return self
 ```
 
-## Project Overview
+## Project Structure
+
+Below is an overview of the project directory:
+
 ```bash
 ├── Dockerfile
 ├── README.md
@@ -152,8 +178,10 @@ class BaseForm(Form):
 ```
 
 
+## Comprehensive Test Coverage
 
-## Tests
+
+### Flask tests
 test cases in `test_app.py`
 
 | Test function | Description                     |
@@ -164,7 +192,7 @@ test cases in `test_app.py`
 |test_png_img| test posting a png image        |
 |test_jpg_img| test posting a jpg image        |
 |test_abnormal_img| test posting an invalid image   |
-### Image result
+### Image tests
 
 | Original                     | Increase brightness            |
 |------------------------------|--------------------------------|
@@ -172,4 +200,5 @@ test cases in `test_app.py`
 | ![](test_images/dog.jpg)     | ![](result_images/dog.jpg)     |
 | ![](test_images/bedroom.png) | ![](result_images/bedroom.png) |
 
-## Performance analysis and next step
+## Next Steps
+This section can outline future improvements, feature additions, and performance enhancements.
