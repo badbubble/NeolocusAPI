@@ -2,7 +2,6 @@
 
 Welcome to Neolocus API, an image processing tool developed using Python Flask. This API is designed to enhance the brightness of images by 30%.
 
-[toc]
 
 ## Getting Started
 ### Prerequisites
@@ -207,7 +206,8 @@ pytest test_main.py
 | ![](test_images/dog.jpg)     | ![](result_images/dog.jpg)     |
 | ![](test_images/bedroom.png) | ![](result_images/bedroom.png) |
 
-## Performance
+## Performance Analysis
+
 This section outlines the performance analysis of our HTTP web servers and suggests areas for future improvements.
 ### Benchmarking with ApacheBench
 
