@@ -5,7 +5,7 @@ Welcome to Neolocus API, an image processing tool developed using Python Flask. 
 
 ## Getting Started
 ### Prerequisites
-Before deploying the API server, make sure you have Docker and Python installed on your machine. These tools are necessary for building and running the API server.
+Before deploying the API server, make sure you have Docker or Python@3.12 installed on your machine. These tools are necessary for building and running the API server.
 ### Deployment
 #### Setting Up the Server
 1. ***Clone the Repository***
@@ -75,6 +75,7 @@ python3 client.py --ip 0.0.0.0 --port 8080 --img_path test_images/bedroom.png --
 ### Redprint for Modular Endpoints
 A 'Redprint' is a variant of Flask's 'Blueprint', designed to help developers organize larger applications into more manageable components focused on specific features,
 For example, use api = Redprint("image") to define a module for image handling.
+
 This approach simplifies routing; instead of repeatedly writing @api.route("/v1/image/upload"), 
 a developer can simply use @api.route("upload").
 
