@@ -64,7 +64,7 @@ def main() -> None:
             print("[E] The save file should have an image extension.")
             return
         directory_path = os.path.dirname(args.save_path)
-        if os.path.exists(directory_path):
+        if os.path.exists(directory_path) or len(directory_path) == 0:
             print(f"[*] Saving image...")
             image.save(args.save_path)
             print(f"[+] Saved successfully to {args.save_path}.")
