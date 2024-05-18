@@ -2,6 +2,8 @@
 
 Welcome to Neolocus API, an image processing tool developed using Python Flask. This API is designed to enhance the brightness of images by 30%.
 
+[toc]
+
 ## Getting Started
 ### Prerequisites
 Before deploying the API server, make sure you have Docker and Python installed on your machine. These tools are necessary for building and running the API server.
@@ -205,5 +207,71 @@ pytest test_main.py
 | ![](test_images/dog.jpg)     | ![](result_images/dog.jpg)     |
 | ![](test_images/bedroom.png) | ![](result_images/bedroom.png) |
 
-## Next Steps
-This section can outline future improvements, feature additions, and performance enhancements.
+## Performance
+This section outlines the performance analysis of our HTTP web servers and suggests areas for future improvements.
+### Benchmarking with ApacheBench
+
+Using the ApacheBench (ab) tool to measure the performance of our web servers. Below is the command used to initiate the benchmark:
+```bash
+ab -n 20000 -c 100 -p postdata.json -T 'application/json' http://192.168.31.147:8080/v1/image/adjust_brightness
+```
+To monitor the Virtual Size (VSZ) and Resident Set Size (RSS) during benchmarking, using the following command:
+```bash
+ps aux | grep python | grep app | awk '{vsz_sum+=$5; rss_sum+=$6} END {print "Total VSZ: " vsz_sum/1024 " MB, Total RSS: " rss_sum/1024 " MB"}'
+```
+The memory usage results indicate no immediate memory leak issues. However, ongoing monitoring is recommended.
+
+![](.github/ab.png)
+
+
+The server successfully processed 20,000 requests without any failures. 
+However, the response times averaged 623.597 ms per request, with peaks up to 5391 ms, 
+and the server achieved a throughput of 160.36 requests per second.
+Despite the decent throughput,
+the significant variability in response times could indicate underlying performance bottlenecks.
+
+```text
+Server Software:        gunicorn
+Server Hostname:        192.168.31.147
+Server Port:            8080
+
+Document Path:          /v1/image/adjust_brightness
+Document Length:        147290 bytes
+
+Concurrency Level:      100
+Time taken for tests:   124.719 seconds
+Complete requests:      20000
+Failed requests:        0
+Total transferred:      2948940000 bytes
+Total body sent:        2623020000
+HTML transferred:       2945800000 bytes
+Requests per second:    160.36 [#/sec] (mean)
+Time per request:       623.597 [ms] (mean)
+Time per request:       6.236 [ms] (mean, across all concurrent requests)
+Transfer rate:          23090.43 [Kbytes/sec] received
+                        20538.45 kb/s sent
+                        43628.87 kb/s total
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        3   11   7.9      9     144
+Processing:   181  611 248.1    589    5349
+Waiting:       59  578 245.9    559    5310
+Total:        186  622 248.8    598    5391
+
+Percentage of the requests served within a certain time (ms)
+  50%    598
+  66%    616
+  75%    632
+  80%    645
+  90%    689
+  95%    740
+  98%    839
+  99%    981
+ 100%   5391 (longest request)
+
+```
+### Next Steps
+* optimizing application code
+* exploring scaling options
+* implementing robust monitoring and profiling tools.
